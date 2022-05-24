@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +21,10 @@ jobs:
           java-version: 1.8
       - name: Test with Gradle
         run: ./gradlew clean build
+      - name: Rename artifacts
+        run: mv target/PlotSquared-Nukkit-*.jar target/PlotSquared-PNX.jar
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: PlotSquared-pnx
-          path: PlotSquared-Nukkit-*.jar
+          name: PlotSquared-PNX
+          path: PlotSquared-PNX.jar
