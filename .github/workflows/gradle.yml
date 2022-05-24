@@ -19,12 +19,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Test with Gradle
+      - name: build with Gradle
         run: ./gradlew clean build
       - name: Rename artifacts
         run: mv target/PlotSquared-Nukkit-*.jar target/PlotSquared-PNX.jar
-      - name: Archive production artifacts
+      - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: PlotSquared-PNX
-          path: PlotSquared-PNX.jar
+          path: target/PlotSquared-PNX.jar
