@@ -18,6 +18,7 @@ import com.plotsquared.nukkit.util.NukkitUtil;
 
 import java.util.Collections;
 import java.util.UUID;
+import java.lang.Long;
 
 public class NukkitPlayer extends PlotPlayer {
 
@@ -52,7 +53,11 @@ public class NukkitPlayer extends PlotPlayer {
     @Override
     public UUID getUUID() {
         if (this.uuid == null) {
-            this.uuid = UUIDHandler.getUUID(this);
+            if(!this.offline) {
+                this.uuid = new UUID(0, Long.parseLong(this.player.getLoginChainData().getXUID()));
+            } else {
+                this.uuid = UUIDHandler.getUUID(this);
+            }
         }
         return this.uuid;
     }
