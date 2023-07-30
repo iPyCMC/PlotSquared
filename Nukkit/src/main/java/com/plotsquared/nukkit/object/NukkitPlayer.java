@@ -53,11 +53,7 @@ public class NukkitPlayer extends PlotPlayer {
     @Override
     public UUID getUUID() {
         if (this.uuid == null) {
-            if(!this.offline) {
-                this.uuid = new UUID(0, Long.parseLong(this.player.getLoginChainData().getXUID()));
-            } else {
-                this.uuid = UUIDHandler.getUUID(this);
-            }
+            this.uuid = UUIDHandler.getUUID(this);
         }
         return this.uuid;
     }

@@ -39,10 +39,20 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>cn.nukkit</groupId>
-      <artifactId>nukkit</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>com.github.CloudburstMC</groupId>
+      <artifactId>Nukkit</artifactId>
+      <version>master-SNAPSHOT</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>fastutil-lite</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>natives</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>

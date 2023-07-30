@@ -1,10 +1,7 @@
 ### Others ###
 *.cmd
-*.sh
 *.prefs
-Sponge/build
 Core/build
-Bukkit/build
 Nukkit/build
 
 ### Maven ###

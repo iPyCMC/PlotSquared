@@ -567,7 +567,7 @@ public class PlayerEvents extends PlotListener implements Listener {
         Plot plot = area.getPlotAbs(location);
         if (plot != null) {
             PlotPlayer plotPlayer = NukkitUtil.getPlayer(player);
-            if (event.getBlock().getY() == 0) {
+            if (event.getBlock().getY() == -64) {
                 if (!Permissions.hasPermission(plotPlayer, C.PERMISSION_ADMIN_DESTROY_GROUNDLEVEL)) {
                     MainUtil.sendMessage(plotPlayer, C.NO_PERMISSION_EVENT, C.PERMISSION_ADMIN_DESTROY_GROUNDLEVEL);
                     event.setCancelled(true);
