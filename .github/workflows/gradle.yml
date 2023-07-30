@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - renovate/gradle-7.x
   pull_request:
     branches:
       - main
+      - renovate/gradle-7.x
 
 jobs:
   test:
