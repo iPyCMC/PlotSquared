@@ -168,7 +168,7 @@ public class PlotListener {
                             replacements.put("%s", MainUtil.getName(plot.owner));
                             String main = StringMan.replaceFromMap(C.TITLE_ENTERED_PLOT.s(), replacements);
                             String sub = StringMan.replaceFromMap(C.TITLE_ENTERED_PLOT_SUB.s(), replacements);
-                            AbstractTitle.sendTitle(player, main, sub);
+                            //AbstractTitle.sendTitle(player, main, sub);
                         }
                     }, 20);
                 }
