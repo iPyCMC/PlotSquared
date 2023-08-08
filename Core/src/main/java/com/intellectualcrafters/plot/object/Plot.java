@@ -1218,10 +1218,7 @@ public class Plot {
         Location loc = new Location(this.getWorldName(), MathMan.average(bot.getX(), top.getX()),
             MathMan.average(bot.getY(), top.getY()), MathMan.average(bot.getZ(), top.getZ()));
         if (isLoaded()) {
-            int y = WorldUtil.IMP.getHighestBlock(getWorldName(), loc.getX(), loc.getZ());
-            if (area.ALLOW_SIGNS) {
-                y = Math.max(y, getManager().getSignLoc(area, this).getY());
-            }
+            int y = 66;
             loc.setY(1 + y);
             return loc;
         } else {
@@ -1236,7 +1233,7 @@ public class Plot {
         PlotManager manager = getManager();
         int y;
         if (isLoaded()) {
-            y = WorldUtil.IMP.getHighestBlock(getWorldName(), x, z);
+            y = 66;
         } else {
             y = 64;
         }
@@ -1257,15 +1254,10 @@ public class Plot {
             return this.getDefaultHome(true);
         } else {
             Location bot = this.getBottomAbs();
-            Location loc = new Location(bot.getWorld(), bot.getX() + home.x, bot.getY() + home.y,
+            Location loc = new Location(bot.getWorld(), bot.getX() + home.x, home.y,
                 bot.getZ() + home.z, home.yaw, home.pitch);
             if (!isLoaded()) {
                 return loc;
-            }
-            if (WorldUtil.IMP.getBlock(loc).id != 0) {
-                loc.setY(Math.max(
-                    1 + WorldUtil.IMP.getHighestBlock(this.getWorldName(), loc.getX(), loc.getZ()),
-                    bot.getY()));
             }
             return loc;
         }
@@ -1278,7 +1270,7 @@ public class Plot {
      */
     public void setHome(BlockLoc location) {
         Plot plot = this.getBasePlot(false);
-        if (location != null && new BlockLoc(0, 0, 0).equals(location)) {
+        if (location != null && new BlockLoc(0, 66, 0).equals(location)) {
             return;
         }
         plot.getSettings().setPosition(location);
@@ -1323,7 +1315,7 @@ public class Plot {
             }
             int y;
             if (loc.y < 1) {
-                y = isLoaded() ? WorldUtil.IMP.getHighestBlock(plot.getWorldName(), x, z) + 1 : 63;
+                y = 66;
             } else {
                 y = loc.y;
             }

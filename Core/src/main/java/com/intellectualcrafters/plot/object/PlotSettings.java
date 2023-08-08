@@ -101,7 +101,7 @@ public class PlotSettings {
 
     public BlockLoc getPosition() {
         if (this.position == null) {
-            return new BlockLoc(0, 0, 0);
+            return new BlockLoc(0, 66, 0);
         }
         return this.position;
     }
