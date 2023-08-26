@@ -41,6 +41,12 @@ public class ConsolePlayer extends PlotPlayer {
     public Location getLocation() {
         return this.getMeta("location");
     }
+
+    @Override
+    public void sendWeather() {}
+
+    @Override
+    public void sendTime() {}
     
     @Override
     public Location getLocationFull() {

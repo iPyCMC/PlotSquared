@@ -26,6 +26,9 @@ public abstract class PlotPlayer implements CommandCaller, OfflinePlotPlayer {
     /** The metadata map.*/
     private ConcurrentHashMap<String, Object> meta;
 
+    /** true if the player's local time differs from the server time */
+    public boolean hasCustomTime = false;
+
     /**
      * Efficiently wrap a Player, or OfflinePlayer object to get a PlotPlayer (or fetch if it's already cached)<br>
      *  - Accepts sponge/bukkit Player (online)
@@ -105,6 +108,16 @@ public abstract class PlotPlayer implements CommandCaller, OfflinePlotPlayer {
     public String toString() {
         return getName();
     }
+
+    /**
+     * Sync the local weather with the server's weather.
+     */
+    public abstract void sendWeather();
+
+    /**
+     * Sync this player's local time with the server's time.
+     */
+    public abstract void sendTime();
 
     /**
      * Get this player's current plot.

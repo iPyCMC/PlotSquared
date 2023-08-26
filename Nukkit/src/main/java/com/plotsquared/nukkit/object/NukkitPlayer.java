@@ -3,17 +3,13 @@ package com.plotsquared.nukkit.object;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.player.PlayerTeleportEvent;
-import cn.nukkit.network.protocol.LevelEventPacket;
+import cn.nukkit.network.protocol.*;
 import cn.nukkit.plugin.RegisteredListener;
 import cn.nukkit.utils.EventException;
 import com.intellectualcrafters.plot.PS;
 import com.intellectualcrafters.plot.object.Location;
 import com.intellectualcrafters.plot.object.PlotPlayer;
-import com.intellectualcrafters.plot.util.EconHandler;
-import com.intellectualcrafters.plot.util.PlotGameMode;
-import com.intellectualcrafters.plot.util.PlotWeather;
-import com.intellectualcrafters.plot.util.StringMan;
-import com.intellectualcrafters.plot.util.UUIDHandler;
+import com.intellectualcrafters.plot.util.*;
 import com.plotsquared.nukkit.util.NukkitUtil;
 
 import java.util.Collections;
@@ -56,6 +52,11 @@ public class NukkitPlayer extends PlotPlayer {
             this.uuid = UUIDHandler.getUUID(this);
         }
         return this.uuid;
+    }
+
+    @Override
+    public void sendWeather() {
+        this.player.getLevel().sendWeather(this.player);
     }
 
     @Override
@@ -224,7 +225,16 @@ public class NukkitPlayer extends PlotPlayer {
 
     @Override
     public void setTime(long time) {
-        throw new UnsupportedOperationException("Not implemented yet: setTIme");
+        SetTimePacket packet = new SetTimePacket();
+        packet.time = (int) time;
+        this.player.dataPacket(packet);
+        this.hasCustomTime = true;
+    }
+
+    @Override
+    public void sendTime() {
+        this.hasCustomTime = false;
+        this.player.getLevel().sendTime();
     }
 
     @Override

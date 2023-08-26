@@ -1,21 +1,14 @@
 repositories {
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url = "http://nexus.hc.to/content/repositories/pub_releases" }
-    //jitpack.io
-    maven { url = "https://jitpack.io" }
-    maven { url = "https://repo.opencollab.dev/repository/maven-releases/" }
-    maven { url = "https://repo.opencollab.dev/maven-snapshots/" }
-    maven { url = "https://repo1.maven.org/maven2/" }
+    maven { url = "https://repo.nukkitx.com/maven-snapshots" }
 }
 
 dependencies {
     implementation(project(":Core"))
     compile(project(":Core"))
     compile("com.google.guava:guava:21.0")
-    compile("com.github.CloudburstMC:Nukkit:master-SNAPSHOT") {
-        exclude(module: "natives")
-        exclude(module: "fastutil-lite")
-    }
+    compile('com.github.Superzock3003:PowerNukkit:v1.18-SNAPSHOT')
 }
 
 sourceCompatibility = 1.8

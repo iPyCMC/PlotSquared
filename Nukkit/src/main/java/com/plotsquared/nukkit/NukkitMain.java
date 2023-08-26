@@ -5,6 +5,7 @@ import cn.nukkit.OfflinePlayer;
 import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityHuman;
+import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.event.Listener;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
@@ -205,6 +206,9 @@ public final class NukkitMain extends PluginBase implements Listener, IPlotMain 
                     }
                     for (Entity entity : world.getEntities()) {
                         if (entity instanceof EntityHuman) {
+                            continue;
+                        }
+                        if(entity instanceof EntityItem) {
                             continue;
                         }
                         Location location = NukkitUtil.getLocation(entity.getLocation());

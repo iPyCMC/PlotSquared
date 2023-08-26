@@ -21,7 +21,7 @@ public class Settings extends Config {
     @Comment("Show additional information in console")
     public static boolean DEBUG = false;
     @Comment({"The big annoying text that appears when you enter a plot", "For a single plot: `/plot flag set titles false`", "For just you: `/plot toggle titles`"})
-    public static boolean TITLES = true;
+    public static boolean TITLES = false;
 
     @Create // This value will be generated automatically
     public static ConfigBlock<Auto_Clear> AUTO_CLEAR = null; // A ConfigBlock is a section that can have multiple instances e.g. multiple expiry tasks

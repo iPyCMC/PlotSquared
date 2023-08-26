@@ -45,6 +45,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.github.Superzock3003</groupId>
+      <artifactId>PowerNukkit</artifactId>
+      <version>v1.18-SNAPSHOT</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>

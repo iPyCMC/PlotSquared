@@ -237,11 +237,11 @@ public class PlotListener {
                 }
             }
             if (plot.getFlag(Flags.TIME).isPresent()) {
-                player.setTime(Long.MAX_VALUE);
+                player.sendTime();
             }
 
             if (plot.getFlag(Flags.WEATHER).isPresent()) {
-                player.setWeather(PlotWeather.CLEAR);
+                player.sendWeather();
             }
 
             Location lastLoc = player.getMeta("music");

@@ -22,7 +22,11 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.*;
+import cn.nukkit.event.block.BlockExplodeEvent;
 import cn.nukkit.event.entity.*;
+import cn.nukkit.entity.item.*;
+import cn.nukkit.event.server.DataPacketSendEvent;
+import cn.nukkit.network.protocol.SetTimePacket;
 import cn.nukkit.event.inventory.InventoryCloseEvent;
 import cn.nukkit.event.player.*;
 import cn.nukkit.event.potion.PotionCollideEvent;
@@ -154,7 +158,7 @@ public class PlayerEvents extends PlotListener implements Listener {
         }
         PlotPlayer pp = NukkitUtil.getPlayer((Player) shooter);
         Plot plot = l.getOwnedPlot();
-        if (plot != null && !plot.isAdded(pp.getUUID())) {
+        if (plot != null && !plot.isAdded(pp.getUUID()) && !Permissions.hasPermission(pp, C.PERMISSION_ADMIN_INTERACT_OTHER)) {
             kill(entity, event);
         }
     }
@@ -682,12 +686,55 @@ public class PlayerEvents extends PlotListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onBigBoomBlock(BlockExplodeEvent event) {
+        Location location = NukkitUtil.getLocation(event.getPosition());
+        PlotArea area = location.getPlotArea();
+        if (area == null) {
+            if (!PS.get().hasPlotArea(location.getWorld())) {
+                return;
+            }
+            Iterator<Block> iterator = event.getAffectedBlocks().iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (location.getPlotArea() != null) {
+                    iterator.remove();
+                }
+            }
+            return;
+        }
+        Plot plot = area.getOwnedPlot(location);
+        if (plot != null) {
+            if (Flags.EXPLOSION.isTrue(plot)) {
+                Iterator<Block> iterator = event.getAffectedBlocks().iterator();
+                while (iterator.hasNext()) {
+                    Block block = iterator.next();
+                    location = NukkitUtil.getLocation(block.getLocation());
+                    if (!area.contains(location.getX(), location.getZ()) || !plot.equals(area.getOwnedPlot(location))) {
+                        iterator.remove();
+                    }
+                }
+                return;
+            }
+        }
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityBlockForm(BlockFormEvent event) {
         String world = event.getBlock().getLevel().getName();
         if (!PS.get().hasPlotArea(world)) {
             return;
         }
-        if (NukkitUtil.getLocation(event.getBlock().getLocation()).getPlotArea() != null) {
+        Location location = NukkitUtil.getLocation(event.getBlock().getLocation());
+        if (location.getPlotArea() != null && location.isPlotRoad()) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void datapacketSend(DataPacketSendEvent event) {
+        final PlotPlayer pp = NukkitUtil.getPlayer(event.getPlayer());
+        if (pp.hasCustomTime && event.getPacket() instanceof SetTimePacket) {
             event.setCancelled(true);
         }
     }
@@ -806,8 +853,10 @@ public class PlayerEvents extends PlotListener implements Listener {
         }
         Plot plot = area.getOwnedPlotAbs(location);
         if (plot == null) {
-            if (!area.MOB_SPAWNING) {
-                kill(entity, event);
+            if(!(entity instanceof EntityItem)){
+                if (!area.MOB_SPAWNING) {
+                    kill(entity, event);
+                }   
             }
             return;
         }

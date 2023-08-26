@@ -34,4 +34,9 @@ public class PlayerEnterPlotEvent extends PlayerEvent {
     public Plot getPlot() {
         return this.plot;
     }
+
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
 }
