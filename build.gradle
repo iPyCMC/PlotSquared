@@ -25,23 +25,23 @@ plugins {
 group = 'com.intellectualcrafters'
 
 def rootVersion = "3"
-def revision = ""
-def buildNumber = ""
+def revision = "0"
+def buildNumber = "0"
 def date = ""
 ext {
     git = Grgit.open(dir: new File(rootDir.toString() + '/.git'))
     date = git.head().getDate().format("yy.MM.dd")
-    revision = "-${git.head().abbreviatedId}"
-    parents = git.head().parentIds
-    if (project.hasProperty('buildnumber')) {
-        buildNumber = "$buildnumber"
-    } else {
-        index = -1352  // Offset to match CI
-        for (; parents != null && !parents.isEmpty(); index++) {
-            parents = git.getResolve().toCommit(parents.get(0)).getParentIds()
-        }
-        buildNumber = "${index}"
-    }
+//    revision = "-${git.head().abbreviatedId}"
+//    parents = git.head().parentIds
+//    if (project.hasProperty('buildnumber')) {
+//        buildNumber = "$buildnumber"
+//    } else {
+//        index = -1352  // Offset to match CI
+//        for (; parents != null && !parents.isEmpty(); index++) {
+//            parents = git.getResolve().toCommit(parents.get(0)).getParentIds()
+//        }
+//        buildNumber = "${index}"
+//    }
 }
 
 version = String.format("%s.%s", rootVersion, buildNumber)

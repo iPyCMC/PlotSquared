@@ -560,7 +560,7 @@ public class PlayerEvents extends PlotListener implements Listener {
         recipients.add(Server.getInstance().getConsoleSender());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void blockDestroy(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Location location = NukkitUtil.getLocation(event.getBlock().getLocation());
